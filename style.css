@@ -1,0 +1,22 @@
+html {
+	text-align: center;
+	font-size: 2vw;
+}
+h1.title {
+	font-size: 200%;
+}
+table {
+        border-collapse: collapse;
+        margin: 0 auto;
+}
+td {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+}
+button {
+	font-size: 100%;
+}
+span.eval {
+	font-size: 100%;
+}
