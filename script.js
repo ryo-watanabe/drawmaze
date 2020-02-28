@@ -1,7 +1,9 @@
-var width = 300;
-var height = 200;
+var width = 500;
+var height = 400;
 var nodes = [];
 var toggle_house = 0;
+var start_pos = {};
+var goal_pos = {};
 
 function start() {
 	recthouse();
@@ -35,7 +37,17 @@ function recthouse() {
 	ctx.fillStyle = 'black';
 	ctx.fillRect(m, m, width - m*2, height - m*2);
 
+	nodes = [];
+	start_pos = {"x": m - 10, "y": m + 20};
+	nodes.push({"x": m + 10, "y": m + 20});
+	goal_pos = {"x": width - m + 10, "y": height - m - 20};
+	nodes.push({"x": width - m - 10, "y": height - m - 20});
 	putnodes(ctx);
+
+	ctx.fillStyle = 'red';
+	ctx.fillRect(start_pos["x"] - 2, start_pos["y"] - 2, 4, 4);
+	ctx.fillStyle = 'blue';
+	ctx.fillRect(goal_pos["x"] - 2, goal_pos["y"] - 2, 4, 4);
 }
 
 function roundhouse() {
@@ -50,7 +62,17 @@ function roundhouse() {
 	ctx.arc(width/2, height/2, height/2 - m, 0, Math.PI*2);
 	ctx.fill();
 
+	nodes = [];
+	start_pos = {"x": width/2 - height/2 + m - 10, "y": height/2};
+	nodes.push({"x": width/2 - height/2 + m + 10, "y": height/2});
+	goal_pos = {"x": width/2 + height/2 - m + 10, "y": height/2};
+	nodes.push({"x": width/2 + height/2 - m - 10, "y": height/2});
 	putnodes(ctx);
+
+	ctx.fillStyle = 'red';
+	ctx.fillRect(start_pos["x"] - 2, start_pos["y"] - 2, 4, 4);
+	ctx.fillStyle = 'blue';
+	ctx.fillRect(goal_pos["x"] - 2, goal_pos["y"] - 2, 4, 4);
 }
 
 function trihouse() {
@@ -67,11 +89,20 @@ function trihouse() {
         ctx.lineTo(width - m, height - m);
         ctx.fill();
 
+	nodes = [];
+	start_pos = {"x": m, "y": height - m - 20};
+	nodes.push({"x": m + 20, "y": height - m - 20});
+	goal_pos = {"x": width - m, "y": height - m - 20};
+	nodes.push({"x": width - m - 20, "y": height - m - 20});
 	putnodes(ctx);
+
+	ctx.fillStyle = 'red';
+	ctx.fillRect(start_pos["x"] - 2, start_pos["y"] - 2, 4, 4);
+	ctx.fillStyle = 'blue';
+	ctx.fillRect(goal_pos["x"] - 2, goal_pos["y"] - 2, 4, 4);
 }
 
 function putnodes(ctx) {
-	nodes = [];
 	var i = 0;
 	while (i < 200) {
 		i++;
@@ -152,4 +183,23 @@ function is_near_by(ctx, px, distance) {
 		}
 	}
 	return false;
+}
+
+function route() {
+	var canvas = document.getElementById('board');
+	if (canvas.getContext == null) return
+	var ctx = canvas.getContext('2d');
+
+	ctx.strokeStyle = 'white';
+	ctx.lineWidth = 20;
+	ctx.lineCap = 'round';
+
+	ctx.beginPath();
+	ctx.moveTo(start_pos["x"], start_pos["y"]);
+	ctx.lineTo(nodes[0]["x"], nodes[0]["y"]);
+	ctx.stroke();
+
+	ctx.moveTo(nodes[1]["x"], nodes[1]["y"]);
+	ctx.lineTo(goal_pos["x"], goal_pos["y"]);
+	ctx.stroke();
 }

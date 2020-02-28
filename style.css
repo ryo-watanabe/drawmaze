@@ -4,6 +4,7 @@ html {
 }
 h1.title {
 	font-size: 200%;
+	margin-bottom: 10px;
 }
 table {
         border-collapse: collapse;
